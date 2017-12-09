@@ -8,93 +8,115 @@
 
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script type="text/javascript">
-                google.charts.load("current", {packages:["corechart"]});
-
-                google.charts.setOnLoadCallback(drawGroupPie);
-                function drawGroupPie() {
-                    var data = google.visualization.arrayToDataTable([
-                      ['Name', 'Total Hours'],
-                      ['Curtis Hart',     15],
-                      ['Garrett Barker',  15],
-                      ['Taylor Earl',     15],
-                    ]);
-
-                    var options = {
-                      title: 'Group Total Hours Worked Per Person',
-                      is3D: true,
-                    };
-
-                    var chart = new google.visualization.PieChart(document.getElementById('groupWork_3D'));
-                    chart.draw(data, options);
-                }
+    google.charts.load("current", { packages: ["corechart"] });
 
 
-                google.charts.setOnLoadCallback(drawBarChart);
-                function drawBarChart() {
-                    var data = google.visualization.arrayToDataTable([
-                        ["Element", "Hours Worked", { role: "style" } ],
-                        ["High", 40, "green"],
-                        ["Average", 35, "blue"],
-                        ["Low", 20, "red"],
-                        ["You", 30, "color: purple"]
-                    ]);
-
-                    var view = new google.visualization.DataView(data);
-                    view.setColumns([0, 1,
-                                       { calc: "stringify",
-                                         sourceColumn: 1,
-                                         type: "string",
-                                         role: "annotation" },
-                                       2]);
-
-                    var options = {
-                        title: "Class Hours Worked Comparison",
-                        width: 600,
-                        height: 400,
-                        bar: {groupWidth: "95%"},
-                        legend: { position: "none" },
-                    };
-
-                    var chart = new google.visualization.BarChart(document.getElementById("barchart_class"));
-                    chart.draw(view, options);
-                }
+    google.charts.setOnLoadCallback(drawGroupPie);
+    function drawGroupPie() {
+        var data = google.visualization.arrayToDataTable([
+            ['Name', 'Total Hours'],
+            ['Curtis Hart', 15],
+            ['Garrett Barker', 15],
+            ['Taylor Earl', 15],
+        ]);
+        var options = {
+            title: 'Your Groups Total Hours Worked Per Person',
+            is3D: true,
+        };
+        var chart = new google.visualization.PieChart(document.getElementById('groupWork_3D'));
+        chart.draw(data, options);
+    }
 
 
-                google.charts.setOnLoadCallback(usersInGroupPie);
-                function usersInGroupPie() {
-                    var data = google.visualization.arrayToDataTable([
-                      ['Name', 'Total Hours'],
-                      ['Curtis Hart',     15],
-                      ['Garrett Barker',  15],
-                      ['Taylor Earl',     15],
-                    ]);
+    google.charts.setOnLoadCallback(drawBarChart);
+    function drawBarChart() {
+        var data = google.visualization.arrayToDataTable([
+            ["Element", "Hours Worked", { role: "style" }],
+            ["High", 40, "green"],
+            ["Average", 35, "blue"],
+            ["Low", 20, "red"],
+            ["You", 30, "color: purple"]
+        ]);
+        var view = new google.visualization.DataView(data);
+        view.setColumns([0, 1,
+            {
+                calc: "stringify",
+                sourceColumn: 1,
+                type: "string",
+                role: "annotation"
+            },
+            2]);
+        var options = {
+            title: "Class Hours Worked Comparison",
+						<!--width: 325, -->
+						<!--height: 325, -->
+            bar: { groupWidth: "95%" },
+        legend: { position: "none" },
+    };
 
-                    var options = {
-                      title: 'Group Total Hours Worked Per Person',
-                      is3D: true,
-                    };
+    var chart = new google.visualization.BarChart(document.getElementById("barchart_class"));
+    chart.draw(view, options);
+				}
 
-                    var chart = new google.visualization.PieChart(document.getElementById('differentGroupWork_3D'));
-                    chart.draw(data, options);
-                }
 
-                google.charts.setOnLoadCallback(drawEachGroupPie);
-                function drawEachGroupPie() {
-                    var data = google.visualization.arrayToDataTable([
-                      ['Group Name', 'Total Hours'],
-                      ['Group 1',     100],
-                      ['Group 2',     100],
-                      ['Group 3',     90],
-                    ]);
+    google.charts.setOnLoadCallback(usersInGroupPie);
+    function usersInGroupPie() {
+        var data = google.visualization.arrayToDataTable([
+            ['Name', 'Total Hours'],
+            ['Curtis Hart', 15],
+            ['Garrett Barker', 15],
+            ['Taylor Earl', 15],
+        ]);
+        var options = {
+            title: 'Group Total Hours Worked Per Person',
+            is3D: true,
+        };
+        var chart = new google.visualization.PieChart(document.getElementById('differentGroupWork_3D'));
+        chart.draw(data, options);
+    }
 
-                    var options = {
-                      title: 'Each Groups Total Hours Worked',
-                      is3D: true,
-                    };
+    google.charts.setOnLoadCallback(drawEachGroupPie);
+    function drawEachGroupPie() {
+        var data = google.visualization.arrayToDataTable([
+            ['Group Name', 'Total Hours'],
+            ['Group 1', 100],
+            ['Group 2', 100],
+            ['Group 3', 90],
+        ]);
+        var options = {
+            title: 'Each Groups Total Hours Worked',
+            is3D: true,
+        };
+        var chart = new google.visualization.PieChart(document.getElementById('eachGroupHours_3D'));
+        chart.draw(data, options);
+    }
 
-                    var chart = new google.visualization.PieChart(document.getElementById('eachGroupHours_3D'));
-                    chart.draw(data, options);
-                }
+    google.charts.load('current', { 'packages': ['table'] });
+    google.charts.setOnLoadCallback(drawTable);
+    function drawTable() {
+        var data = new google.visualization.DataTable();
+
+
+        data.addColumn('datetime', 'Start Time');
+        data.addColumn('datetime', 'Stop Time');
+        data.addColumn('number', 'Total Hours');
+        data.addColumn('string', 'Group Name');
+        data.addColumn('string', 'Comments');
+        data.addColumn('datetime', 'Modified Date');
+        data.addColumn('string', '');
+
+
+
+        data.addRows([
+
+            // year, month, day, hour, minutes
+            [new Date(2017, 11, 6, 19, 30), new Date(2017, 11, 6, 21, 30), { v: 2.00 }, 'Group 1', '', new Date(2017, 11, 6, 21, 30), '<a data-toggle="modal" data-target="#modalEditTable">Edit</a>'],
+            [new Date(2017, 11, 7, 19, 30), new Date(2017, 11, 6, 23, 30), { v: 4.00 }, 'Group 1', 'Changed Stop Time from 12/7/2017 10:41:42 PM to 12/7/2017 11:41:42 PM', new Date(2017, 11, 6, 23, 30), '<a data-toggle="modal" data-target="#modalEditTable">Edit</a>']
+
+        ]);
+        var table = new google.visualization.Table(document.getElementById('table_div'));
+        table.draw(data, { showRowNumber: true, width: '100%', height: '100%', allowHtml: true });
+    }
 
 </script>
 
@@ -104,208 +126,349 @@
 <h3>@ViewBag.projectID</h3>
 <h3>@ViewBag.groupID</h3>
 
-@foreach (var i in ViewBag.testList)
-{
-    <p>@i</p>
-}
+<!-- Profile Modal -->
+<div class="modal fade" id="modalProfile" role="dialog">
+    <div class="modal-dialog">
 
-<h3>List of Timecards!</h3>
-@foreach (var i in ViewBag.timeCardList)
-{
-    <p>@i.startTime</p>
-}
+        <!-- Modal content-->
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Profile</h4>
+            </div>
 
 
-<nav class="navbar navbar-inverse">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <a class="navbar-brand" href="#">Timecard Manager</a>
+            <div class="form-group col-xs-12">
+                <label for="fullname-name" class="form-control-label">Full Name:</label>
+                <input type="text" class="form-control" id="fullname-name">
+            </div>
+
+
+            <div class="form-group col-xs-12">
+                <label for="username-name" class="form-control-label">Username:</label>
+                <input type="text" class="form-control" id="username-name">
+            </div>
+
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<!-- Add to Group Modal -->
+<div class="modal fade" id="modalAddGroup" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Add to Group</h4>
+            </div>
+
+            <div class="form-group dropdown col-xs-12">
+                <button class="btn btn-default col-xs-12 dropdown-toggle" type="button" data-toggle="dropdown">
+                    <span id="dropdown_menuaddgroup">Select Group </span><span class="glyphicon glyphicon-chevron-down"></span>
+                </button>
+
+                <ul class="dropdown-menu col-xs-12" id="menuaddgroup">
+                    <li><a href="#">Group 1 </a></li>
+                    <li><a href="#">Group 2 </a></li>
+                    <li><a href="#">Group 3 </a></li>
+                </ul>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Add to Group</button>
+            </div>
         </div>
 
-        <ul class="nav navbar-nav">
-            <li class="active"><a href="#">Home</a></li>
+    </div>
+</div>
 
-            <!-- Drop down Class -->
-            <li class="dropdown active span8">
-            <li class="dropdown">
-                <a class="dropdown-toggle" data-toggle="dropdown" href="#"><span id="dropdown_class">Select Project </span><span class="glyphicon glyphicon-chevron-down"></span></a>
-                <ul class="dropdown-menu" id="projectNames">
-                    <li><a>CS 1400</a></li>
-                    <li><a>CS 1410</a></li>
-                    <li><a>CS 3750</a></li>
-                </ul>
-            </li>
+<!-- Create New Group Modal -->
+<div class="modal fade" id="modalCreateGroup" role="dialog">
+    <div class="modal-dialog">
 
-            <li class="dropdown">
-                <a class="dropdown-toggle" data-toggle="dropdown" href="#"><span id="dropdown_class">Select Group </span><span class="glyphicon glyphicon-chevron-down"></span></a>
-                <ul class="dropdown-menu" id="groupNames">
-                    <li><a>CS 1400</a></li>
-                    <li><a>CS 1410</a></li>
-                    <li><a>CS 3750</a></li>
-                </ul>
-            </li>
+        <!-- Modal content-->
+        <div class="modal-content">
 
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Create New Group</h4>
+            </div>
 
-            <!-- Drop down Student -->
-            <li class="dropdown">
-                <a class="dropdown-toggle" data-toggle="dropdown" href="#"><span id="dropdown_student">Select Student </span><span class="glyphicon glyphicon-chevron-down"></span></a>
-                <ul class="dropdown-menu" id="studentNames">
-                    <li><a href="#">Curtis Hart</a></li>
-                    <li><a href="#">Garrett Barker</a></li>
-                    <li><a href="#">Taylor Earl</a></li>
-                </ul>
-            </li>
+            <div class="form-group col-xs-12">
+                <label for="creategroup-name" class="form-control-label">Group Name:</label>
+                <input type="text" class="form-control" id="creategroup-name">
+            </div>
 
-        </ul>
-
-
-        <!-- Drop down Menu right aligned  -->
-        <ul class="nav navbar-nav navbar-right">
-            <li class="dropdown">
-                <a class="dropdown-toggle" data-toggle="dropdown" href="#">Menu <span class="glyphicon glyphicon-chevron-down"></span></a>
-                <ul class="dropdown-menu" id="menu">
-                    <li><a href="#">Profile </a></li>
-                    <li><a href="#">Add to Group</a></li>
-                    <li><a href="#">Create Group</a></li>
-                    <li><a href="#">Logout</a></li>
-                </ul>
-            </li>
-        </ul>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Create New Group</button>
+            </div>
+        </div>
 
     </div>
-</nav>
+</div>
+
+
+<!-- Delete Group Modal -->
+<div class="modal fade" id="modalDeleteGroup" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Delete Group</h4>
+            </div>
+
+
+            <div class="form-group dropdown col-xs-12">
+                <button class="btn btn-default col-xs-12 dropdown-toggle" type="button" data-toggle="dropdown">
+                    <span id="dropdown_menudeletegroup">Select Group </span><span class="glyphicon glyphicon-chevron-down"></span>
+                </button>
+
+                <ul class="dropdown-menu col-xs-12" id="menudeletegroup">
+                    <li><a href="#">Group 1 </a></li>
+                    <li><a href="#">Group 2 </a></li>
+                    <li><a href="#">Group 3 </a></li>
+                </ul>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Delete Group</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<!-- Create New Class Modal -->
+<div class="modal fade" id="modalCreateClass" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Create New Class</h4>
+            </div>
+
+            <div class="form-group col-xs-12">
+                <label for="createclass-name" class="form-control-label">Class Name:</label>
+                <input type="text" class="form-control" id="createclass-name">
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Create New Class</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- Delete Class Modal -->
+<div class="modal fade" id="modalDeleteClass" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Delete Class</h4>
+            </div>
+
+            <div class="form-group dropdown col-xs-12">
+                <button class="btn btn-default col-xs-12 dropdown-toggle" type="button" data-toggle="dropdown">
+                    <span id="dropdown_menuclass">Select Class </span><span class="glyphicon glyphicon-chevron-down"></span>
+                </button>
+
+                <ul class="dropdown-menu col-xs-12" id="menuclassNames">
+                    <li><a href="#">CS 1400 </a></li>
+                    <li><a href="#">CS 1410 </a></li>
+                    <li><a href="#">CS 3750 </a></li>
+                </ul>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Delete Class</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<!-- Edit Table Modal -->
+<div class="modal fade" id="modalEditTable" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Profile</h4>
+            </div>
+
+
+            <div class="form-group col-xs-12">
+                <label for="fullname-name" class="form-control-label">Full Name:</label>
+                <input type="text" class="form-control" id="fullname-name">
+            </div>
+
+
+            <div class="form-group col-xs-12">
+                <label for="username-name" class="form-control-label">Username:</label>
+                <input type="text" class="form-control" id="username-name">
+            </div>
+
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+
+        </div>
+    </div>
+</div>
 
 
 
 
-<div style="display: block">
-    <form>
-        <fieldset>
-            <label>Group Name:</label>
-            <label id="groupName"></label><br>
 
-            <label>Current Time:</label>
-            <label id="date"></label>
-            <label id="datetime"></label><br>
 
-            <label>Total Running Time:</label>
-            <label id="runningTime"></label><br>
+<div class="container">
+    <h2>Clock In / Clock Out</h2>
+    <form class="form-horizontal">
 
-            <input id="startTime" type="submit" value="Start">
-            <input id="stopTime" type="submit" value="Stop">
-        </fieldset>
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="email">Group Name:</label>
+
+            <div class="col-sm-10">
+                <input type="group" class="form-control" id="group" placeholder="Group Name" name="group">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-sm-2">Current Time:</label>
+
+            <div class="col-sm-10">
+                <label id="date"></label>
+                <label id="datetime"></label><br>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10" id="start">
+                <button id="startTime" type="button" class="btn btn-default">Start</button>
+                <button id="stopTime" type="button" class="btn btn-default">Stop</button>
+            </div>
+        </div>
+
     </form>
 </div>
 
 <div style="width: 1500px;">
-    <div id="barchart_class" style="float: left; width: 700px; height: 400px"></div>
-    <div id="groupWork_3D" style="float: left; width: 700px; height: 400px;"></div>
+
+    <div id="groupWork_3D" style="float: left; width: 25%; height: 250px;"></div>
+    <div id="barchart_class" style="float: left; width: 25%; height: 250px;"></div>
+
+    <div id="differentGroupWork_3D" style="float: left; width: 25%; height: 250px;"></div>
+    <div id="eachGroupHours_3D" style="float: left; width: 25%; height: 250px;"></div>
     <br style="clear: left;" />
-</div>
-
-
-<table>
-    <tr>
-        <th>Start Time</th>
-        <th>Stop Time</th>
-        <th>Total Time</th>
-        <th>Group Name</th>
-        <th>Comments</th>
-        <th>Modified Date</th>
-        <th></th>
-    </tr>
-
-
-    @foreach (var i in ViewBag.timeCardList)
-    {
-        <tr>
-            <td>@i.startTime</td>
-            <td>@i.stopTime</td>
-            <td>@i.totalTime</td>
-            <td>Group 1</td>
-            <td>@i.comments</td>
-            <td>@i.lastModDate</td>
-        </tr>
-    }
-
-    <tr>
-        <td>11/15/2017 5:00pm</td>
-        <td>11/15/2017 8:00pm</td>
-        <td>3.00</td>
-        <td>Group 1</td>
-        <td>Worked on Nav Bar</td>
-        <td>11/15/2017 8:00pm</td>
-        <td>
-            <a href="http://google.com">
-                <div style="height:100%;width:100%">
-                    Edit
-                </div>
-            </a>
-        </td>
-    </tr>
-    <tr>
-        <td>11/16/2017 5:00pm</td>
-        <td>11/16/2017 8:00pm</td>
-        <td>3.00</td>
-        <td>Group 3</td>
-        <td>Worked on Database</td>
-        <td>11/15/2017 8:00pm</td>
-        <td>
-            <a href="http://google.com">
-                <div style="height:100%;width:100%">
-                    Edit
-                </div>
-            </a>
-        </td>
-    </tr>
-</table>
-
-
-
-
-
-<div style="width: 1500px;">
-    <div id="differentGroupWork_3D" style="float: left; width: 700px; height: 400px;"></div>
-    <div id="eachGroupHours_3D" style="float: left; width: 700px; height: 400px"></div>
-    <br style="clear: left;" />
+    <div id="table_div"></div>
 </div>
 
 <script type="text/javascript">
 
-</script>
+    // Select Class From Dropdown
+    $('.dropdown-toggle').dropdown();
+    $('#classNames li').on('click', function () {
+        $('#dropdown_class').html($(this).find('a').html());
+    })
 
-<script>
-
-
-                $('.dropdown-toggle').dropdown();
-                $('#classNames li').on('click', function() {
-                    $('#dropdown_class').html($(this).find('a').html());
-                })
-
-                $('.dropdown-toggle').dropdown();
-                $('#studentNames li').on('click', function() {
-                    $('#dropdown_student').html($(this).find('a').html());
-                })
+    // Select Class Dropdown From Menu
+    $('.dropdown-toggle').dropdown();
+    $('#menuclassNames li').on('click', function () {
+        $('#dropdown_menuclass').html($(this).find('a').html());
+    })
 
 
-            // Current Time Function
-            var dt = new Date();
-            document.getElementById("date").innerHTML = dt.toLocaleDateString();
-            document.getElementById("datetime").innerHTML = dt.toLocaleTimeString();
 
 
-            <!-- // Group Dropdown -->
-            <!-- function dropdownGroups() { -->
-                <!-- document.getElementById("myDropdownGroup").classList.toggle("show"); -->
-            <!-- } -->
+    // Select Student From Dropdown
+    $('.dropdown-toggle').dropdown();
+    $('#studentNames li').on('click', function () {
+        $('#dropdown_student').html($(this).find('a').html());
+    })
 
-            <!-- // Group Dropdown Onclick -->
-            <!-- window.onclick = function(e) { -->
-              <!-- if (!e.target.matches('.dropbtnGroup')) { -->
-                <!-- var dropdowngroup = document.getElementById("myDropdownGroup"); -->
-                  <!-- if (dropdowngroup.classList.contains('show')) { -->
-                    <!-- dropdowngroup.classList.remove('show'); -->
-                  <!-- } -->
-              <!-- } -->
-            <!-- } -->
+
+
+    // Select Group From Dropdown
+    $('.dropdown-toggle').dropdown();
+    $('#groupNames li').on('click', function () {
+        $('#dropdown_group').html($(this).find('a').html());
+    })
+
+    // Select Add to Group Dropdown From Menu
+    $('.dropdown-toggle').dropdown();
+    $('#menuaddgroup li').on('click', function () {
+        $('#dropdown_menuaddgroup').html($(this).find('a').html());
+    })
+
+    // Select Delete Group Dropdown From Menu
+    $('.dropdown-toggle').dropdown();
+    $('#menudeletegroup li').on('click', function () {
+        $('#dropdown_menudeletegroup').html($(this).find('a').html());
+    })
+
+    $(
+        function () {
+
+            $('#startTime').click(function () {
+                //e.preventDefault();
+
+                var dt = new Date();
+                document.getElementById("date").innerHTML = dt.toLocaleDateString();
+                document.getElementById("datetime").innerHTML = dt.toLocaleTimeString();
+
+                $('#startTime').hide();
+                $('#stopTime').show();
+            });
+
+        }
+    );
+
+
+    $(
+        function () {
+
+            $('#stopTime').click(function () {
+
+                var dt = new Date();
+                document.getElementById("date").innerHTML = ""
+                document.getElementById("datetime").innerHTML = ""
+                $('#stopTime').hide();
+                $('#startTime').show();
+            });
+
+        }
+    );
+
 </script>

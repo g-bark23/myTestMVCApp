@@ -18,7 +18,7 @@ namespace myTestApp.Controllers
             HttpContext.Session.SetString(USERKEY, "");
             HttpContext.Session.SetString(PROJECTKEY, "");
             HttpContext.Session.SetString(GROUPKEY, "");
-            return View();
+            return RedirectToAction("myTestView", "Home");
         }
 
         public IActionResult About()
