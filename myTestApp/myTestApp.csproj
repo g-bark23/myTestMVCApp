@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Models\Group.cs" />
+    <Compile Remove="Models\Project.cs" />
+    <Compile Remove="Models\timeCard.cs" />
+    <Compile Remove="Models\UserToGroup.cs" />
+    <Compile Remove="Models\ApplicationDbContext.cs" />
+    <Compile Remove="Models\DBHelper.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="Models\Index.cshtml" />
+  </ItemGroup>
+</Project>
