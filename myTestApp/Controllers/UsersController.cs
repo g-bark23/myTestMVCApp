@@ -1,12 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using myTestApp.Models;
-using System.Security.Cryptography;
 using Microsoft.AspNetCore.Cryptography.KeyDerivation;
+using static myTestApp.Session.SessionHelper;
+using Microsoft.AspNetCore.Http;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -72,7 +71,12 @@ namespace myTestApp.Controllers
                 var logInUserPassword = from myUser in _context.User
                                                                where myUser.username == user.username
                                                            select myUser.password;
-                
+
+                var logInUserID = from myUser in _context.User
+                                        where myUser.username == user.username
+                                        select myUser.userID;
+                String uID = logInUserID.First().ToString();
+
                 byte[] salt = new byte[] { 1, 2, 3, 4, 5, 6, 7 };
                 string hashed = Convert.ToBase64String(KeyDerivation.Pbkdf2(
                     password: user.password,
@@ -82,7 +86,8 @@ namespace myTestApp.Controllers
                     numBytesRequested: 256 / 8));
                 
                 if(logInUserPassword.First() == hashed){
-                    return RedirectToAction("Index", "Home");
+                    HttpContext.Session.SetString(USERKEY, uID);
+                    return RedirectToAction("dashboard", "Home");
                 }else {
                     return RedirectToAction("myTestView", "Home");
                 }

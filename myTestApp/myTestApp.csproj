@@ -13,10 +13,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Remove="Models\Group.cs" />
-    <Compile Remove="Models\Project.cs" />
-    <Compile Remove="Models\timeCard.cs" />
-    <Compile Remove="Models\UserToGroup.cs" />
     <Compile Remove="Models\ApplicationDbContext.cs" />
     <Compile Remove="Models\DBHelper.cs" />
   </ItemGroup>

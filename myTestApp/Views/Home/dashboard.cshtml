@@ -1,0 +1,311 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewData["Title"] = "Contact";
+}
+
+
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+                google.charts.load("current", {packages:["corechart"]});
+
+                google.charts.setOnLoadCallback(drawGroupPie);
+                function drawGroupPie() {
+                    var data = google.visualization.arrayToDataTable([
+                      ['Name', 'Total Hours'],
+                      ['Curtis Hart',     15],
+                      ['Garrett Barker',  15],
+                      ['Taylor Earl',     15],
+                    ]);
+
+                    var options = {
+                      title: 'Group Total Hours Worked Per Person',
+                      is3D: true,
+                    };
+
+                    var chart = new google.visualization.PieChart(document.getElementById('groupWork_3D'));
+                    chart.draw(data, options);
+                }
+
+
+                google.charts.setOnLoadCallback(drawBarChart);
+                function drawBarChart() {
+                    var data = google.visualization.arrayToDataTable([
+                        ["Element", "Hours Worked", { role: "style" } ],
+                        ["High", 40, "green"],
+                        ["Average", 35, "blue"],
+                        ["Low", 20, "red"],
+                        ["You", 30, "color: purple"]
+                    ]);
+
+                    var view = new google.visualization.DataView(data);
+                    view.setColumns([0, 1,
+                                       { calc: "stringify",
+                                         sourceColumn: 1,
+                                         type: "string",
+                                         role: "annotation" },
+                                       2]);
+
+                    var options = {
+                        title: "Class Hours Worked Comparison",
+                        width: 600,
+                        height: 400,
+                        bar: {groupWidth: "95%"},
+                        legend: { position: "none" },
+                    };
+
+                    var chart = new google.visualization.BarChart(document.getElementById("barchart_class"));
+                    chart.draw(view, options);
+                }
+
+
+                google.charts.setOnLoadCallback(usersInGroupPie);
+                function usersInGroupPie() {
+                    var data = google.visualization.arrayToDataTable([
+                      ['Name', 'Total Hours'],
+                      ['Curtis Hart',     15],
+                      ['Garrett Barker',  15],
+                      ['Taylor Earl',     15],
+                    ]);
+
+                    var options = {
+                      title: 'Group Total Hours Worked Per Person',
+                      is3D: true,
+                    };
+
+                    var chart = new google.visualization.PieChart(document.getElementById('differentGroupWork_3D'));
+                    chart.draw(data, options);
+                }
+
+                google.charts.setOnLoadCallback(drawEachGroupPie);
+                function drawEachGroupPie() {
+                    var data = google.visualization.arrayToDataTable([
+                      ['Group Name', 'Total Hours'],
+                      ['Group 1',     100],
+                      ['Group 2',     100],
+                      ['Group 3',     90],
+                    ]);
+
+                    var options = {
+                      title: 'Each Groups Total Hours Worked',
+                      is3D: true,
+                    };
+
+                    var chart = new google.visualization.PieChart(document.getElementById('eachGroupHours_3D'));
+                    chart.draw(data, options);
+                }
+
+</script>
+
+
+<h2>@ViewData["Title"]</h2>
+<h3>@ViewBag.userID</h3>
+<h3>@ViewBag.projectID</h3>
+<h3>@ViewBag.groupID</h3>
+
+@foreach (var i in ViewBag.testList)
+{
+    <p>@i</p>
+}
+
+<h3>List of Timecards!</h3>
+@foreach (var i in ViewBag.timeCardList)
+{
+    <p>@i.startTime</p>
+}
+
+
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">Timecard Manager</a>
+        </div>
+
+        <ul class="nav navbar-nav">
+            <li class="active"><a href="#">Home</a></li>
+
+            <!-- Drop down Class -->
+            <li class="dropdown active span8">
+            <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#"><span id="dropdown_class">Select Project </span><span class="glyphicon glyphicon-chevron-down"></span></a>
+                <ul class="dropdown-menu" id="projectNames">
+                    <li><a>CS 1400</a></li>
+                    <li><a>CS 1410</a></li>
+                    <li><a>CS 3750</a></li>
+                </ul>
+            </li>
+
+            <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#"><span id="dropdown_class">Select Group </span><span class="glyphicon glyphicon-chevron-down"></span></a>
+                <ul class="dropdown-menu" id="groupNames">
+                    <li><a>CS 1400</a></li>
+                    <li><a>CS 1410</a></li>
+                    <li><a>CS 3750</a></li>
+                </ul>
+            </li>
+
+
+            <!-- Drop down Student -->
+            <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#"><span id="dropdown_student">Select Student </span><span class="glyphicon glyphicon-chevron-down"></span></a>
+                <ul class="dropdown-menu" id="studentNames">
+                    <li><a href="#">Curtis Hart</a></li>
+                    <li><a href="#">Garrett Barker</a></li>
+                    <li><a href="#">Taylor Earl</a></li>
+                </ul>
+            </li>
+
+        </ul>
+
+
+        <!-- Drop down Menu right aligned  -->
+        <ul class="nav navbar-nav navbar-right">
+            <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">Menu <span class="glyphicon glyphicon-chevron-down"></span></a>
+                <ul class="dropdown-menu" id="menu">
+                    <li><a href="#">Profile </a></li>
+                    <li><a href="#">Add to Group</a></li>
+                    <li><a href="#">Create Group</a></li>
+                    <li><a href="#">Logout</a></li>
+                </ul>
+            </li>
+        </ul>
+
+    </div>
+</nav>
+
+
+
+
+<div style="display: block">
+    <form>
+        <fieldset>
+            <label>Group Name:</label>
+            <label id="groupName"></label><br>
+
+            <label>Current Time:</label>
+            <label id="date"></label>
+            <label id="datetime"></label><br>
+
+            <label>Total Running Time:</label>
+            <label id="runningTime"></label><br>
+
+            <input id="startTime" type="submit" value="Start">
+            <input id="stopTime" type="submit" value="Stop">
+        </fieldset>
+    </form>
+</div>
+
+<div style="width: 1500px;">
+    <div id="barchart_class" style="float: left; width: 700px; height: 400px"></div>
+    <div id="groupWork_3D" style="float: left; width: 700px; height: 400px;"></div>
+    <br style="clear: left;" />
+</div>
+
+
+<table>
+    <tr>
+        <th>Start Time</th>
+        <th>Stop Time</th>
+        <th>Total Time</th>
+        <th>Group Name</th>
+        <th>Comments</th>
+        <th>Modified Date</th>
+        <th></th>
+    </tr>
+
+
+    @foreach (var i in ViewBag.timeCardList)
+    {
+        <tr>
+            <td>@i.startTime</td>
+            <td>@i.stopTime</td>
+            <td>@i.totalTime</td>
+            <td>Group 1</td>
+            <td>@i.comments</td>
+            <td>@i.lastModDate</td>
+        </tr>
+    }
+
+    <tr>
+        <td>11/15/2017 5:00pm</td>
+        <td>11/15/2017 8:00pm</td>
+        <td>3.00</td>
+        <td>Group 1</td>
+        <td>Worked on Nav Bar</td>
+        <td>11/15/2017 8:00pm</td>
+        <td>
+            <a href="http://google.com">
+                <div style="height:100%;width:100%">
+                    Edit
+                </div>
+            </a>
+        </td>
+    </tr>
+    <tr>
+        <td>11/16/2017 5:00pm</td>
+        <td>11/16/2017 8:00pm</td>
+        <td>3.00</td>
+        <td>Group 3</td>
+        <td>Worked on Database</td>
+        <td>11/15/2017 8:00pm</td>
+        <td>
+            <a href="http://google.com">
+                <div style="height:100%;width:100%">
+                    Edit
+                </div>
+            </a>
+        </td>
+    </tr>
+</table>
+
+
+
+
+
+<div style="width: 1500px;">
+    <div id="differentGroupWork_3D" style="float: left; width: 700px; height: 400px;"></div>
+    <div id="eachGroupHours_3D" style="float: left; width: 700px; height: 400px"></div>
+    <br style="clear: left;" />
+</div>
+
+<script type="text/javascript">
+
+</script>
+
+<script>
+
+
+                $('.dropdown-toggle').dropdown();
+                $('#classNames li').on('click', function() {
+                    $('#dropdown_class').html($(this).find('a').html());
+                })
+
+                $('.dropdown-toggle').dropdown();
+                $('#studentNames li').on('click', function() {
+                    $('#dropdown_student').html($(this).find('a').html());
+                })
+
+
+            // Current Time Function
+            var dt = new Date();
+            document.getElementById("date").innerHTML = dt.toLocaleDateString();
+            document.getElementById("datetime").innerHTML = dt.toLocaleTimeString();
+
+
+            <!-- // Group Dropdown -->
+            <!-- function dropdownGroups() { -->
+                <!-- document.getElementById("myDropdownGroup").classList.toggle("show"); -->
+            <!-- } -->
+
+            <!-- // Group Dropdown Onclick -->
+            <!-- window.onclick = function(e) { -->
+              <!-- if (!e.target.matches('.dropbtnGroup')) { -->
+                <!-- var dropdowngroup = document.getElementById("myDropdownGroup"); -->
+                  <!-- if (dropdowngroup.classList.contains('show')) { -->
+                    <!-- dropdowngroup.classList.remove('show'); -->
+                  <!-- } -->
+              <!-- } -->
+            <!-- } -->
+</script>
