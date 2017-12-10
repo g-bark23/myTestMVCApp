@@ -1,0 +1,1014 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+			<meta charset="utf-8">
+			<meta name="viewport" content="width=device-width, initial-scale=1">
+			<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+			
+			
+			
+			<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+			<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+			
+			
+			<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"> -->
+
+			<!-- Optional theme -->
+			<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.min.css" />
+
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js"></script>   
+			<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+			<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>
+			
+			<style>
+				.google-visualization-table-td {
+				text-align: left !important;
+				}
+			</style>
+	
+			<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+			<script type="text/javascript">
+				google.charts.load("current", {packages:["corechart"]});
+				
+				
+				<!----------------------- Google Pie Chart (Users Group) ------------------------->
+				google.charts.setOnLoadCallback(drawGroupPie);
+				function drawGroupPie() {
+					var data = google.visualization.arrayToDataTable([
+					  ['Name', 'Total Hours'],
+					  ['Curtis Hart',     15.25],
+					  ['Garrett Barker',  15.25],
+					  ['Taylor Earl',     15.25],
+					]);
+
+					var options = {
+					  title: 'Your Groups Total Hours Worked Per Person',
+					  is3D: true,
+					};
+
+					var chart = new google.visualization.PieChart(document.getElementById('groupWork_3D'));
+					chart.draw(data, options);
+				}
+				
+				
+				
+				
+				<!----------------------- Google Bar Chart for High, Avg, Low, and User Logged In ------------------------->
+				google.charts.setOnLoadCallback(drawBarChart);
+				function drawBarChart() {
+					var data = google.visualization.arrayToDataTable([
+						["Element", "Hours Worked", { role: "style" } ],
+						["High", 40, "green"],
+						["Average", 35, "blue"],
+						["Low", 20, "red"],
+						["You", 30, "color: purple"]
+					]);
+
+					var view = new google.visualization.DataView(data);
+					view.setColumns([0, 1,
+									   { calc: "stringify",
+										 sourceColumn: 1,
+										 type: "string",
+										 role: "annotation" },
+									   2]);
+
+					var options = {
+						title: "Class Hours Worked Comparison", 
+						<!-- width: 325, -->
+						<!-- height: 325, -->
+						bar: {groupWidth: "95%"},
+						legend: { position: "none" },
+					};
+					
+					var chart = new google.visualization.BarChart(document.getElementById("barchart_class"));
+					chart.draw(view, options);
+				}
+				
+				
+				
+				
+				<!----------------------- Google Pie Chart (Users In Specific Group) ------------------------->
+				google.charts.setOnLoadCallback(usersInGroupPie);
+				function usersInGroupPie() {
+					var data = google.visualization.arrayToDataTable([
+					  ['Name', 'Total Hours'],
+					  ['Curtis Hart',     15],
+					  ['Garrett Barker',  15],
+					  ['Taylor Earl',     15],
+					]);
+
+					var options = {
+					  title: 'Group Total Hours Worked Per Person',
+					  is3D: true,
+					};
+
+					var chart = new google.visualization.PieChart(document.getElementById('differentGroupWork_3D'));
+					chart.draw(data, options);
+				}
+				
+				
+				
+				
+				<!----------------------- Google Pie Chart (All Groups) ------------------------->
+				google.charts.setOnLoadCallback(drawEachGroupPie);
+				function drawEachGroupPie() {
+					var data = google.visualization.arrayToDataTable([
+					  ['Group Name', 'Total Hours'],
+					  ['Group 1',     100],
+					  ['Group 2',     100],
+					  ['Group 3',     90],
+					]);
+
+					var options = {
+					  title: 'Each Groups Total Hours Worked',
+					  is3D: true,
+					};
+
+					var chart = new google.visualization.PieChart(document.getElementById('eachGroupHours_3D'));
+					chart.draw(data, options);
+				}
+				
+
+				
+				
+				<!----------------------- Google Table ------------------------->	
+				  google.charts.load('current', {'packages':['table']});
+				  google.charts.setOnLoadCallback(drawTable);
+
+				  function drawTable() {
+					var data = new google.visualization.DataTable();
+					
+					
+					data.addColumn('datetime', 'Start Time');
+					data.addColumn('datetime', 'Stop Time');
+					data.addColumn('number', 'Total Hours');
+					data.addColumn('string', 'Group Name');
+					data.addColumn('string', 'Comments');
+					data.addColumn('datetime', 'Modified Date');
+					data.addColumn('string', '');
+						
+					<!-- var formatter = new google.visualization.NumberFormat({fractionDigits: 2}); -->
+						<!-- formatter.format(data, 1); -->
+			
+					data.addRows([
+					
+						// year, month, day, hour, minutes
+						[ new Date(2017, 11, 6, 19, 30), new Date(2017, 11, 6, 21, 30), 2.25, 'Group 1', '', new Date(2017, 11, 6, 21, 30), '<a data-toggle="modal" data-target="#modalEditTable">Edit</a>'],
+						[ new Date(2017, 11, 7, 19, 30), new Date(2017, 11, 6, 23, 30), 4.45, 'Group 1', 'Changed Stop Time from 12/7/2017 10:41:42 PM to 12/7/2017 11:41:42 PM', new Date(2017, 11, 6, 23, 30), '<a data-toggle="modal" data-target="#modalEditTable">Edit</a>']
+					
+					]);
+				
+
+					var table = new google.visualization.Table(document.getElementById('table_div'));
+
+					table.draw(data, {showRowNumber: true, width: '100%', height: '100%', allowHtml: true});
+				  }
+								
+			</script>	
+	</head>
+		
+		
+<body>
+
+		<nav class="navbar navbar-inverse">
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<a class="navbar-brand" href="#">Timecard Manager</a>
+				</div>
+				
+				<ul class="nav navbar-nav">
+					<li class="active"><a href="#">Home</a></li>
+					
+					<!-- Drop down Class -->
+					<li class="dropdown active span8"> 
+					<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#"><span id="dropdown_class">Select Project </span><span class="glyphicon glyphicon-chevron-down"></span></a>
+						<ul class="dropdown-menu" id="classNames">
+							<!-- @foreach(var i in Model.allProjects){ -->
+                                <!-- <li><a>@i.name</a></li> -->
+                            <!-- } -->
+							<li><a>CS 1400 </a></li>
+						</ul>
+					</li>
+					</li>
+					
+				
+					
+					<!-- Drop down Group -->
+					<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#"><span id="dropdown_group">Select Group </span><span class="glyphicon glyphicon-chevron-down"></span></a>
+						<ul class="dropdown-menu" id="groupNames">
+							<li><a href="#">Group 1 </a></li>
+							<li><a href="#">Group 2 </a></li>
+							<li><a href="#">Group 3 </a></li>
+						</ul>
+					</li>
+					
+					
+					<!-- Drop down Student -->
+					<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#"><span id="dropdown_student">Select Student </span><span class="glyphicon glyphicon-chevron-down"></span></a>
+						<ul class="dropdown-menu" id="studentNames">
+							<li><a href="#">Curtis Hart </a></li>
+							<li><a href="#">Garrett Barker </a></li>
+							<li><a href="#">Taylor Earl </a></li>
+						</ul>
+					</li>
+					
+				</ul>
+				
+				
+				<!-- Drop down Menu right aligned  -->
+				<ul class="nav navbar-nav navbar-right">
+					<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Menu <span class="glyphicon glyphicon-chevron-down"></span></a>
+						<ul class="dropdown-menu" id="menu">
+						
+								<!-- Admin & Student Access -->
+							<li><a class="btn btn-default btn-lg" data-toggle="modal" data-target="#modalProfile">Profile </a></li>					<!-- Admin & Student Access -->
+							
+							<li><a class="btn btn-default btn-lg" data-toggle="modal" data-target="#modalCreateGroup">Create New Group </a></li>		<!-- Admin & Student Access -->
+							<li><a class="btn btn-default btn-lg" data-toggle="modal" data-target="#modalAddGroup">Add to Group </a></li>				<!-- Admin & Student Access -->
+							<li><a class="btn btn-default btn-lg" data-toggle="modal" data-target="#modalDeleteGroup">Delete Group </a></li>			<!-- Admin Access -->
+	
+
+							<li><a class="btn btn-default btn-lg" data-toggle="modal" data-target="#modalCreateClass">Create New Class </a></li>		<!-- Admin Access -->
+							<li><a class="btn btn-default btn-lg" data-toggle="modal" data-target="#modalDeleteClass">Delete Class </a></li>			<!-- Admin Access -->
+							
+							<li><a class="btn btn-primary btn-lg" id="logout">Logout </a></li>
+						</ul>
+					</li>
+				</ul>
+				
+			</div>
+		</nav>
+		
+		
+		
+		
+		<!----------------------- Modal Profile Button in Menu ------------------------->						
+
+		<div class="modal fade" id="modalProfile" role="dialog">
+			<div class="modal-dialog">
+			
+			  <!-- Modal content-->
+			  <div class="modal-content">
+			  
+				<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+						<h4 class="modal-title">Profile</h4>
+				</div>
+				
+				
+				<div class="form-group col-xs-12">
+						<label for="fullname-name" class="form-control-label">Full Name:</label>
+						<input type="text" class="form-control" id="fullname-name">
+				</div>
+				
+				
+				<div class="form-group col-xs-12">
+						<label for="username-name" class="form-control-label">Username:</label>
+						<input type="text" class="form-control" id="username-name">
+				</div>
+				
+
+				<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+				</div>
+				
+			  </div>
+			</div>
+		</div>
+					
+					
+				
+
+				
+					
+		<!----------------------- Modals for Create New Group Button in Menu ------------------------->						
+		
+		<!-- Create New Group Modal -->
+		<div class="modal fade" id="modalCreateGroup" role="dialog">
+			<div class="modal-dialog">
+			
+			  <!-- Modal content-->
+			  <div class="modal-content">
+			  
+				<div class="modal-header">
+				  <button type="button" class="close" data-dismiss="modal">&times;</button>
+				  <h4 class="modal-title">Create New Group</h4>
+				</div>
+				
+				<div class="form-group col-xs-12">
+						<label for="creategroup-name" class="form-control-label">Group Name:</label>
+						<input type="text" class="form-control" id="creategroup-name">
+				</div>
+				
+				<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+						<button onclick=checkCreateNewGroup() type="button" class="btn btn-primary" data-toggle="modal">Create New Group</button>
+				</div>
+			  </div>
+			  
+			</div>
+		</div>
+					
+					
+		<!-- Confirm Create New Group Modal -->
+		<div class="modal fade" id="confirmCreatedGroup" role="dialog">
+			<div class="modal-dialog">
+			
+			  <!-- Modal content-->
+			  <div class="modal-content">
+			  
+				<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+						<h4 class="modal-title">Confirm Created New Group</h4>
+				</div>
+				
+				<div class="modal-body">
+					<p>Are you sure you want to Create New Group?</p>
+				</div>
+				
+				<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+						<button id="doneCreatedGroup" type="button" class="btn btn-primary">Confirm</button>
+				</div>
+			  </div>
+			  
+			</div>
+		</div>
+
+		
+		
+		
+		
+		
+		<!----------------------- Modals for Add to Group Button in Menu ------------------------->						
+									
+		<!-- Add to Group Modal -->
+		<div class="modal fade" id="modalAddGroup" role="dialog">
+			<div class="modal-dialog">
+			
+			  <!-- Modal content-->
+			  <div class="modal-content">
+			  
+				<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+						<h4 class="modal-title">Add to Group</h4>
+				</div>
+				
+				<div class="form-group dropdown col-xs-12">
+						<button id="addtogroup" class="btn btn-default col-xs-12 dropdown-toggle" type="button" data-toggle="dropdown">
+							<span id="dropdown_menuaddgroup">Select Group </span><span class="glyphicon glyphicon-chevron-down"></span>
+						</button>
+							
+						<ul class="dropdown-menu col-xs-12" id="menuaddgroup">
+							<li><a href="#">Group 1 </a></li>
+							<li><a href="#">Group 2 </a></li>
+							<li><a href="#">Group 3 </a></li>
+						</ul>
+				</div>
+				
+				<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+						<button onclick=checkAddtoGroup() type="button" class="btn btn-primary" data-toggle="modal">Add to Group</button>
+				</div>
+			  </div>
+			  
+			</div>
+		</div>
+					
+
+		<!-- Confirm Added to Group Modal -->
+		<div class="modal fade" id="confirmAddtoGroup" role="dialog">
+			<div class="modal-dialog">
+			
+			  <!-- Modal content-->
+			  <div class="modal-content">
+			  
+				<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+						<h4 class="modal-title">Confirm Added to Group</h4>
+				</div>
+				
+				<div class="modal-body">
+					<p>Are you sure you want to be Added to Group?</p>
+				</div>
+				
+				<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+						<button id="doneAddedtoGroup" type="button" class="btn btn-primary">Confirm</button>
+				</div>
+			  </div>
+			  
+			</div>
+		</div>
+
+		
+		
+		
+		
+		
+
+		<!----------------------- Modals for Delete Group Button in Menu ------------------------->			
+					
+		<!-- Delete Group Modal -->
+		<div class="modal fade" id="modalDeleteGroup" role="dialog">
+			<div class="modal-dialog">
+			
+			  <!-- Modal content-->
+			  <div class="modal-content">
+			  
+				<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+						<h4 class="modal-title">Delete Group</h4>
+				</div>
+				
+				
+				<div class="form-group dropdown col-xs-12">
+						<button id="deletegroup" class="btn btn-default col-xs-12 dropdown-toggle" type="button" data-toggle="dropdown">
+							<span id="dropdown_menudeletegroup">Select Group </span><span class="glyphicon glyphicon-chevron-down"></span>
+						</button>
+							
+						<ul class="dropdown-menu col-xs-12" id="menudeletegroup">
+							<li><a href="#">Group 1 </a></li>
+							<li><a href="#">Group 2 </a></li>
+							<li><a href="#">Group 3 </a></li>
+						</ul>
+				</div>
+				
+				<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+						<button onclick=checkDeleteGroup() type="button" class="btn btn-primary" data-toggle="modal">Delete Group</button>
+				</div>
+			  </div>
+			  
+			</div>
+		</div>
+					
+		<!-- Confirm Delete Group Modal -->
+		<div class="modal fade" id="confirmDeleteGroup" role="dialog">
+			<div class="modal-dialog">
+			
+			  <!-- Modal content-->
+			  <div class="modal-content">
+			  
+				<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+						<h4 class="modal-title">Confirm Delete Group</h4>
+				</div>
+				
+				<div class="modal-body">
+					<p>Are you sure you want to be Delete this Group?</p>
+				</div>
+				
+				<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+						<button id="doneDeletedGroup" type="button" class="btn btn-primary">Confirm</button>
+				</div>
+			  </div>
+			  
+			</div>
+		</div>
+
+		
+		
+		
+		
+		
+		
+		<!----------------------- Modals for Create New Class Button in Menu ------------------------->	
+		
+		<!-- Create New Class Modal -->
+		<div class="modal fade" id="modalCreateClass" role="dialog">
+			<div class="modal-dialog">
+			
+			  <!-- Modal content-->
+			  <div class="modal-content">
+			  
+				<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+						<h4 class="modal-title">Create New Class</h4>
+				</div>
+				
+				<div class="form-group col-xs-12">
+						<label for="createclass-name" class="form-control-label">Class Name:</label>
+						<input type="text" class="form-control" id="createclass-name">
+				</div>
+				
+				<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+						<button onclick=checkCreateNewClass() type="button" class="btn btn-primary" data-toggle="modal">Create New Class</button>
+				</div>
+			  </div>
+			  
+			</div>
+		</div>
+					
+					
+					
+		<!-- Confirm Create New Class Modal -->
+		<div class="modal fade" id="confirmCreateNewClass" role="dialog">
+			<div class="modal-dialog">
+			
+			  <!-- Modal content-->
+			  <div class="modal-content">
+			  
+				<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+						<h4 class="modal-title">Confirm Create New Class</h4>
+				</div>
+				
+				<div class="modal-body">
+					<p>Are you sure you want to be Create this New Class?</p>
+				</div>
+				
+				<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+						<button id="doneCreatedNewClass" type="button" class="btn btn-primary">Complete Delete Class</button>
+				</div>
+			  </div>
+			  
+			</div>
+		</div>					
+
+		
+		
+		
+		
+		
+		
+		<!----------------------- Modals for Delete Class Button in Menu ------------------------->	
+		
+		<!-- Delete Class Modal -->
+		<div class="modal fade" id="modalDeleteClass" role="dialog">
+			<div class="modal-dialog">
+			
+			  <!-- Modal content-->
+			  <div class="modal-content">
+			  
+				<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+						<h4 class="modal-title">Delete Class</h4>
+				</div>
+				
+				<div class="form-group dropdown col-xs-12">
+						<button id="deleteclass" class="btn btn-default col-xs-12 dropdown-toggle" type="button" data-toggle="dropdown">
+							<span id="dropdown_menuclass">Select Class </span><span class="glyphicon glyphicon-chevron-down"></span>
+						</button>
+							
+						<ul class="dropdown-menu col-xs-12" id="menuclassNames">
+							<li><a href="#">CS 1400 </a></li>
+							<li><a href="#">CS 1410 </a></li>
+							<li><a href="#">CS 3750 </a></li>
+						</ul>
+				</div>
+				
+				<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+						<button onclick=checkDeleteClass() type="button" class="btn btn-primary" data-toggle="modal">Delete Class</button>
+				</div>
+			  </div>
+			  
+			</div>
+		</div>
+		
+		
+		
+		<!-- Confirm Delete Class Modal -->
+		<div class="modal fade" id="confirmDeleteClass" role="dialog">
+			<div class="modal-dialog">
+			
+			  <!-- Modal content-->
+			  <div class="modal-content">
+			  
+				<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+						<h4 class="modal-title">Confirm Delete Class</h4>
+				</div>
+				
+				<div class="modal-body">
+					<p>Are you sure you want to be Delete this Class?</p>
+				</div>
+				
+				<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+						<button id="doneDeletedClass" type="button" class="btn btn-primary">Complete Delete Class</button>
+				</div>
+			  </div>
+			  
+			</div>
+		</div>
+
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		<!----------------------- Edit Entry in Table Modal ------------------------->		
+		<!-- Edit Table Modal -->
+		<div class="modal fade" id="modalEditTable" role="dialog">
+			<div class="modal-dialog">
+			
+			  <!-- Modal content-->
+			  <div class="modal-content">
+			  
+				<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+						<h4 class="modal-title">Update Entry</h4>
+				</div>
+				
+				<div class="container">
+					<div class='col-sm-3'>
+						<div class="form-group">
+							<label>Start Time: </label>
+							<div class='input-group date' id='datetimepicker6'>
+								<input id="startDate" type='text' class="form-control" />
+								<span class="input-group-addon">
+									<span class="glyphicon glyphicon-calendar"></span>
+								</span>
+							</div>
+						</div>
+					</div>
+					
+					<div class='col-sm-3'>
+						<div class="form-group">
+							<label>Stop Time: </label>
+							<div class='input-group date' id='datetimepicker7'>
+								<input id="stopDate" type='text' class="form-control" />
+								<span class="input-group-addon">
+									<span class="glyphicon glyphicon-calendar"></span>
+								</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+
+				<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+						<button onclick=checkUpdateEntry() type="button" class="btn btn-primary" data-toggle="modal">Update Entry</button>
+				</div>
+				
+			  </div>
+			</div>
+		</div>
+		
+		
+		<!-- Confirm Edit Modal -->
+		<div class="modal fade" id="confirmUpdateEntry" role="dialog">
+			<div class="modal-dialog">
+			
+			  <!-- Modal content-->
+			  <div class="modal-content">
+			  
+				<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+						<h4 class="modal-title">Confirm Edit Entry</h4>
+				</div>
+				
+				<div class="modal-body">
+					<p>Are you sure you want to be Update this Entry?</p>
+				</div>
+				
+				<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+						<button id="doneUpdateEntry" type="button" class="btn btn-primary">Complete Update Entry</button>
+				</div>
+			  </div>
+			  
+			</div>
+		</div>
+
+		
+		
+		
+		
+		
+		
+		
+		
+		<!----------------------- Clock in & Clock out Form ------------------------->
+		<div class="container">
+			<h2>Clock In / Clock Out</h2>
+			<form class="form-horizontal">
+			
+				<div class="form-group">
+					<label class="control-label col-sm-2" for="email">Group Name:</label>
+				  
+					<div class="col-sm-10">
+						<input type="group" class="form-control" id="group" placeholder="Group Name" name="group">
+					</div>
+				</div>
+				
+				<div class="form-group">
+					  <label class="control-label col-sm-2">Current Time:</label>
+					  
+					  <div class="col-sm-10">    
+							<label id="date"></label>
+							<label id="datetime"></label><br>
+					  </div>
+				</div>
+				
+				<div class="form-group">        
+					<div class="col-sm-offset-2 col-sm-10" id="start">
+						<button id="startTime" type="button" class="btn btn-default">Start</button>
+						<button id="stopTime" type="button" class="btn btn-default">Stop</button>
+						
+					</div>
+				</div>
+				
+			</form>
+		</div>
+		
+		
+		
+		
+		
+		<!----------------------- Google Charts and Table ------------------------->
+		
+		<div style="width: 1500px;">
+			
+			<div id="groupWork_3D" style="float: left; width: 25%; height: 250px;"></div> 	
+			<div id="barchart_class" style="float: left; width: 25%; height: 250px;"></div>
+			
+			<div id="differentGroupWork_3D" style="float: left; width: 25%; height: 250px;"></div> 
+			<div id="eachGroupHours_3D" style="float: left; width: 25%; height: 250px;"></div>
+			<br style="clear: left;" />
+			<div id="table_div"></div>
+		</div>
+
+	
+		
+		
+
+		
+		
+		
+		<script type="text/javascript">
+		
+			// Select Class From Dropdown			
+			$('.dropdown-toggle').dropdown();
+			$('#classNames li').on('click', function() {
+				$('#dropdown_class').html($(this).find('a').html());
+			})
+			
+			// Select Class Dropdown From Menu			
+			$('.dropdown-toggle').dropdown();
+			$('#menuclassNames li').on('click', function() {
+				$('#dropdown_menuclass').html($(this).find('a').html());
+			})
+			
+			
+			
+			
+			// Select Student From Dropdown			
+			$('.dropdown-toggle').dropdown();
+			$('#studentNames li').on('click', function() {
+				$('#dropdown_student').html($(this).find('a').html());
+			})
+
+			
+			
+			
+			// Select Group From Dropdown			
+			$('.dropdown-toggle').dropdown();
+			$('#groupNames li').on('click', function() {
+				$('#dropdown_group').html($(this).find('a').html());
+			})
+			
+			// Select Add to Group Dropdown From Menu			
+			$('.dropdown-toggle').dropdown();
+			$('#menuaddgroup li').on('click', function() {
+				$('#dropdown_menuaddgroup').html($(this).find('a').html());
+			})
+			
+			// Select Delete Group Dropdown From Menu			
+			$('.dropdown-toggle').dropdown();
+			$('#menudeletegroup li').on('click', function() {
+				$('#dropdown_menudeletegroup').html($(this).find('a').html());
+			})
+
+			
+			<!---------------------- Timecard Show & Hide Start and Stop Buttons ---------------------->
+			
+			// Hide Stop Button onLoad
+			$(document).ready(function() {
+				$('#stopTime').hide();
+				
+				$('#datetimepicker6').datetimepicker();
+					
+				$('#datetimepicker7').datetimepicker({
+					useCurrent: false //Important! See issue #1075
+				});
+			});
+			
+			
+			
+			$(
+				function(){
+				 
+					$('#startTime').click(function(){
+							
+							var dt = new Date();
+							document.getElementById("date").innerHTML = dt.toLocaleDateString();
+							document.getElementById("datetime").innerHTML = dt.toLocaleTimeString();	
+							
+							$('#startTime').hide();
+							$('#stopTime').show();						  
+					});
+					
+				}
+			);
+			
+			
+			
+			$(
+				function(){
+				 
+					$('#stopTime').click(function(){
+					
+							var dt = new Date();
+							document.getElementById("date").innerHTML = ""
+							document.getElementById("datetime").innerHTML = ""
+							$('#stopTime').hide();
+							$('#startTime').show();		  
+					});
+					
+				}
+			);
+			
+			
+			<!---------------------- Datepickers in Table Edit Modal ---------------------->
+			$(
+				function() {
+					
+					$("#datetimepicker6").on("dp.change", function (e) {
+						$('#datetimepicker7').data("DateTimePicker").minDate(e.date);
+					});
+					
+					$("#datetimepicker7").on("dp.change", function (e) {
+						$('#datetimepicker6').data("DateTimePicker").maxDate(e.date);
+					});
+				
+				}
+			);
+
+			
+			
+			
+			
+			<!---------------------- Error Handling Create New Group Button in Menu ---------------------->
+			function checkCreateNewGroup() {
+				var input = document.getElementById("creategroup-name").value; 
+				
+				if (input.trim() == '') {
+					alert("Please Input Group Name");
+				}
+				else {
+					
+					$('#confirmCreatedGroup').modal('show');
+				}
+				
+			}
+			
+			// Create New Group Hide Models when Done		
+			$('#doneCreatedGroup').click(function() {
+					document.getElementById("creategroup-name").value = ""
+					
+					$('.modal').modal('hide')
+					$('.modal-backdrop').remove()
+			});
+
+			
+			
+			
+			
+			<!---------------------- Error Handling Added to Group Button in Menu ------------------------>
+			function checkAddtoGroup() {
+				
+				var input = $('#addtogroup').text();
+				
+				if (input.trim() == 'Select Group') { 
+					alert("Please Select Group Name to Add"); 
+				}
+				else { 
+					$('#confirmAddtoGroup').modal('show');
+				} 
+				
+			}
+
+			// Add to Group Hide Models when Done		
+			$('#doneAddedtoGroup').click(function() {					
+					$('.modal').modal('hide')
+					$('.modal-backdrop').remove()
+			});
+
+							
+							
+			
+			<!----------------------- Error Handling Delete Group Button in Menu ------------------------->
+			function checkDeleteGroup() {
+		
+				var input = $('#deletegroup').text();
+				
+				if (input.trim() == 'Select Group') { 
+					alert("Please Select Group Name to Delete"); 
+				}
+				else { 
+					$('#confirmDeleteGroup').modal('show');
+				} 
+				
+			}
+							
+			// Delete Group Hide Models when Done		
+			$('#doneDeletedGroup').click(function() {
+					$('.modal').modal('hide')
+					$('.modal-backdrop').remove()
+			});
+
+
+			
+			
+			<!---------------------- Error Handling Create New Class Button in Menu ---------------------->
+			function checkCreateNewClass() {
+				var input = document.getElementById("createclass-name").value; 
+				
+				if (input.trim() == '') {
+					alert("Please Input Class Name");
+				}
+				else {
+					$('#confirmCreateNewClass').modal('show');
+				}
+				
+			}
+			
+			// Create New Class Hide Models when Done		
+			$('#doneCreatedNewClass').click(function() {
+					document.getElementById("createclass-name").value = ""
+					
+					$('.modal').modal('hide')
+					$('.modal-backdrop').remove()
+			});
+
+
+							
+
+			<!----------------------- Error Handling Delete Class Button in Menu ------------------------->
+			function checkDeleteClass() {
+		
+				var input = $('#deleteclass').text();
+				
+				if (input.trim() == 'Select Class') { 
+					alert("Please Select Class Name to Delete"); 
+				}
+				else { 
+					$('#confirmDeleteClass').modal('show');
+				} 
+				
+			}
+			
+			// Delete Class Hide Models when Done		
+			$('#doneDeletedClass').click(function() {
+					$('.modal').modal('hide')
+					$('.modal-backdrop').remove()
+			});
+			
+			<!---------------------- Error Handling Edit Button in Table ---------------------->
+			function checkUpdateEntry() {
+				
+				var input1 = document.getElementById("startDate").value; 
+				var input2 = document.getElementById("stopDate").value; 
+				
+				if (input1.trim() == '') {
+					alert("Please Input Start Time");
+				}
+				else if (input2.trim() == '') {
+					alert("Please Input Stop Time");
+				}
+				else {
+					$('#confirmUpdateEntry').modal('show');
+				}
+				
+			}
+			
+			// Create New Group Hide Models when Done		
+			$('#doneUpdateEntry').click(function() {
+					document.getElementById("startDate").value = ""
+					document.getElementById("stopDate").value = ""
+					
+					$('.modal').modal('hide')
+					$('.modal-backdrop').remove()
+			});
+
+			
+			
+			
+		</script>
+</body>
+</html>
