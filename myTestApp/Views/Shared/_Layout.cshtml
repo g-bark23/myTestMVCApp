@@ -8,12 +8,14 @@
     <environment include="Development">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
         <link rel="stylesheet" href="~/css/site.css" />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>
     </environment>
     <environment exclude="Development">
         <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/css/bootstrap.min.css"
               asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
               asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
         <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>
     </environment>
 </head>
 <body>
@@ -75,10 +77,12 @@
                         <li><a class="btn btn-default btn-lg" data-toggle="modal" data-target="#modalAddGroup">Add to Group </a></li>				<!-- Admin & Student Access -->
                         <li><a class="btn btn-default btn-lg" data-toggle="modal" data-target="#modalDeleteGroup">Delete Group </a></li>			<!-- Admin Access -->
 
-
-                        <li><a class="btn btn-default btn-lg" data-toggle="modal" data-target="#modalCreateClass">Create New Class </a></li>		<!-- Admin Access -->
-                        <li><a class="btn btn-default btn-lg" data-toggle="modal" data-target="#modalDeleteClass">Delete Class </a></li>			<!-- Admin Access -->
-
+                        @if (ViewBag.isLoggedInUserAdmin == true)
+                        {
+                            <li><a class="btn btn-default btn-lg" data-toggle="modal" data-target="#modalCreateClass">Create New Class </a></li>		<!-- Admin Access -->
+                            <li><a class="btn btn-default btn-lg" data-toggle="modal" data-target="#modalDeleteClass">Delete Class </a></li>			<!-- Admin Access -->
+                        }
+                        
                         <li><a class="btn btn-primary btn-lg" id="logout">Logout </a></li>
                     </ul>
                 </li>
@@ -87,6 +91,10 @@
         </div>
     </nav>
     <div class="container body-content">
+        <h2>@ViewData["Title"]</h2>
+        <h3>@ViewBag.userID</h3>
+        <h3>@ViewBag.projectID</h3>
+        <h3>@ViewBag.groupID</h3>
         @RenderBody()
         <hr />
         <footer>

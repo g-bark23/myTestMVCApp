@@ -18,6 +18,7 @@ namespace myTestApp.Controllers
             HttpContext.Session.SetString(USERKEY, "");
             HttpContext.Session.SetString(PROJECTKEY, "");
             HttpContext.Session.SetString(GROUPKEY, "");
+            HttpContext.Session.SetString(SELECTEDUSER, "");
             return RedirectToAction("myTestView", "Home");
         }
 
@@ -44,40 +45,59 @@ namespace myTestApp.Controllers
 
         public IActionResult dashboard()
         {
+            //Initialize session variables
             var sessionUserID = HttpContext.Session.GetString(USERKEY);
             var sessionProjectID = HttpContext.Session.GetString(PROJECTKEY);
             var sessionGroupID = HttpContext.Session.GetString(GROUPKEY);
-
+            var sessionSelectedUserID = HttpContext.Session.GetString(SELECTEDUSER);
+            //Initialize Database Helper
             DBHelper dbhelp = new DBHelper();
+
+            //Data Structures
+            List<TimeCard> timeCardList = new List<TimeCard>();
+                //<User Full Name, Users Total Worked Hours>
+            Dictionary<String, String> groupUserHours = new Dictionary<string, string>();
+            String projectHoursHigh;
+            String projectHoursAverage;
+            String projectHoursLow;
+            String projectHoursSelectedUser;
+                //<Group Name, Group Hours>
+            Dictionary<String, String> projectGroupHours = new Dictionary<string, string>();
+            bool isLoggedInUserSelected;
+            if (sessionUserID.Equals(sessionSelectedUserID))
+            {
+                isLoggedInUserSelected = true;
+            }
+            else
+            {
+                isLoggedInUserSelected = false;
+            }
+
+            bool isLoggedInUserAdmin = true;
+            ViewBag.isLoggedInUserAdmin = isLoggedInUserAdmin;
+
+
+            List<Project> allProjects;
+            List<Group> projectGroups;
+            List<User> groupUsers;
+
+            //projectGroups = getProjcetGroups();
+            //groupUsers = getGroupUsers();
+            //timeCardList = dbhelp.getAllUserTimeCard(sessionSelectedUserID);
+            //projectHoursHigh = getProjectHoursHigh();
+            //projectHoursLow = getProjectHoursLow();
+            //groupUserHours = getGroupUserHours();
+            
+
+
             string Message = "LOGGED IN USER ID " + sessionUserID;
             ViewBag.userID = Message;
             Message = "CURRENT GROUP ID " + sessionGroupID;
             ViewBag.groupID = Message;
             Message = "CURRENT PROJECT ID " + sessionProjectID;
             ViewBag.projectID = Message;
-            List<String> testList = new List<string>();
-            testList.Add("test1");
-            testList.Add("test2");
-            testList.Add("test3");
-            ViewBag.testList = testList;
-            List<TimeCard> timeCardList = new List<TimeCard>();
             addTimeCard();
             timeCardList = dbhelp.getAllUserTimeCard("13");
-            /*
-            for (int i = 0; i < 10; i++)
-            {
-                TimeCard tc = new TimeCard();
-                tc.comments = "testing + " + i;
-                tc.stopTime = "11/17/17";
-                tc.startTime = "11/16/17";
-                tc.timeCardID = i;
-                tc.userID = i + 10;
-                timeCardList.Add(tc);
-            }
-            */
-            //List<Project> allProjects;
-            //List<Group> projectGroups;
-            //List<User> groupUsers;
             ViewBag.timeCardList = timeCardList;
             return View();
         }

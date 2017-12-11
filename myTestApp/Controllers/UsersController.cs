@@ -87,6 +87,7 @@ namespace myTestApp.Controllers
                 
                 if(logInUserPassword.First() == hashed){
                     HttpContext.Session.SetString(USERKEY, uID);
+                    HttpContext.Session.SetString(SELECTEDUSER, uID);
                     return RedirectToAction("dashboard", "Home");
                 }else {
                     return RedirectToAction("myTestView", "Home");

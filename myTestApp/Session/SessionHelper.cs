@@ -11,5 +11,6 @@ namespace myTestApp.Session
         public static readonly String USERKEY = "_UserID";
         public static readonly String GROUPKEY = "_GroupID";
         public static readonly String PROJECTKEY = "_ProjectID";
+        public static readonly String SELECTEDUSER = "_SelectedUserID";
     }
 }
