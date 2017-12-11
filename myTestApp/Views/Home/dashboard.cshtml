@@ -139,6 +139,21 @@
 						<!--formatter.format(data, 1); -->
 
             data.addRows([
+	            @foreach(TimeCard t in ViewBag.timeCardList)
+	            {
+	                //tcs._startDate = Convert.ToDateTime("12/08/17");
+                    //tcs._endDate = Convert.ToDateTime("12/08/17");
+                    //tcs.comments = "testing " + i;
+                    //tcs.timeCardID = 1234;
+                    //tcs.userID = 14;
+                    //tcs.revisionHistory = "revision " + (i + 100);
+                    //tcs._lastModDate = Convert.ToDateTime("12/08/17");
+	                  // year, month, day, hour, minutes
+	                //tcs._startDate.ToString("yyyy,MM,dd,mm,hh");
+                [new Date(@t._startDate.ToString("yyyy,MM,dd,mm,hh");), new Date(@t._endDate.ToString("yyyy,MM,dd,mm,hh");), 2.25, 'Group 1', '', new Date(t._lastModDate.ToString("yyyy,MM,dd,mm,hh");), '<a data-toggle="modal" data-target="#modalEditTable">Edit</a>'],
+                  
+	            
+	            }
 
                 // year, month, day, hour, minutes
                 [new Date(2017, 11, 6, 19, 30), new Date(2017, 11, 6, 21, 30), 2.25, 'Group 1', '', new Date(2017, 11, 6, 21, 30), '<a data-toggle="modal" data-target="#modalEditTable">Edit</a>'],

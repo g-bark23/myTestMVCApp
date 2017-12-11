@@ -33,8 +33,11 @@
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#"><span id="dropdown_class">Select Project </span><span class="glyphicon glyphicon-chevron-down"></span></a>
                     <ul class="dropdown-menu" id="classNames">
-                        ->
-                        <li><a>CS 1400 </a></li>
+                        @foreach(Project p in ViewBag.allProjects)
+						{
+                            <li><a>@p.name</a></li>
+
+						}
                     </ul>
                 </li>
 
@@ -44,6 +47,10 @@
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#"><span id="dropdown_group">Select Group </span><span class="glyphicon glyphicon-chevron-down"></span></a>
                     <ul class="dropdown-menu" id="groupNames">
+							@foreach(Group g in ViewBag.projectGroups)
+							{
+                                <li><a>@g.name</a></li>
+                            }
                         <li><a href="#">Group 1 </a></li>
                         <li><a href="#">Group 2 </a></li>
                         <li><a href="#">Group 3 </a></li>

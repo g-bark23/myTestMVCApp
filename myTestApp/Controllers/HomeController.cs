@@ -54,7 +54,7 @@ namespace myTestApp.Controllers
             DBHelper dbhelp = new DBHelper();
 
             //Data Structures
-            List<TimeCard> timeCardList = new List<TimeCard>();
+            //List<TimeCard> timeCardList = new List<TimeCard>();
                 //<User Full Name, Users Total Worked Hours>
             Dictionary<String, String> groupUserHours = new Dictionary<string, string>();
             String projectHoursHigh;
@@ -78,7 +78,16 @@ namespace myTestApp.Controllers
 
 
             List<Project> allProjects;
+            allProjects = dbhelp.getAllProject();
+            ViewBag.allProjects = allProjects;
             List<Group> projectGroups;
+            projectGroups = new List<Group>();
+            for (int i = 0; i < 3; i++){
+                Group g = new Group();
+                g.name = "Group " + i;
+                projectGroups.Add(g);
+            }
+            ViewBag.projectGroups = projectGroups;
             List<User> groupUsers;
 
             //projectGroups = getProjcetGroups();
@@ -87,6 +96,20 @@ namespace myTestApp.Controllers
             //projectHoursHigh = getProjectHoursHigh();
             //projectHoursLow = getProjectHoursLow();
             //groupUserHours = getGroupUserHours();
+            List<TimeCardClientSide> timeCardList = new List<TimeCardClientSide>();
+            for (int i = 1; i < 5; i++)
+            {
+                TimeCardClientSide tcs = new TimeCardClientSide();
+                tcs._startDate = Convert.ToDateTime("06 July 2008 7:32:47 AM");
+                tcs._endDate = Convert.ToDateTime("07 July 2008 10:32:47 AM");
+                tcs.comments = "testing " + i;
+                tcs.timeCardID = 1234;
+                tcs.userID = 14;
+                tcs.revisionHistory = "revision " + (i + 100);
+                tcs._lastModDate = Convert.ToDateTime("07 July 2008 10:32:47 AM");
+                String fDate = tcs._startDate.ToString("yyyy,MM,dd,mm,hh");
+                timeCardList.Add(tcs);
+            }
             
 
 
@@ -97,7 +120,7 @@ namespace myTestApp.Controllers
             Message = "CURRENT PROJECT ID " + sessionProjectID;
             ViewBag.projectID = Message;
             addTimeCard();
-            timeCardList = dbhelp.getAllUserTimeCard("13");
+            //timeCardList = dbhelp.getAllUserTimeCard("13");
             ViewBag.timeCardList = timeCardList;
             return View();
         }
