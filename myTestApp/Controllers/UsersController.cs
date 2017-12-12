@@ -38,6 +38,10 @@ namespace myTestApp.Controllers
         {
             if (ModelState.IsValid)
             {
+                if (user.name == null || user.username == null || user.password == null){
+                    return RedirectToAction("myTestView", "Home");
+                }
+
                 byte[] salt = new byte[] { 1, 2, 3, 4, 5, 6, 7 };
                 //using (var rng = RandomNumberGenerator.Create())
                 //{
@@ -68,6 +72,9 @@ namespace myTestApp.Controllers
         {
             if (ModelState.IsValid)
             {
+                if(user.username == null || user.password == null){
+                    return RedirectToAction("myTestView", "Home"); 
+                }
                 var logInUserPassword = from myUser in _context.User
                                                                where myUser.username == user.username
                                                            select myUser.password;
