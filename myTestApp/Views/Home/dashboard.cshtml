@@ -138,14 +138,17 @@
 
             data.addRows([
 	            @{
-    	            foreach(TimeCardClientSide t in ViewBag.timeCardList)
+    	            foreach(TimeCard t in ViewBag.timeCardList)
     	            {
                       @Html.Raw("[new Date(");
-	                  @t._startDate.ToString("yyyy,MM,dd,mm,hh");
+	                  DateTime _startDate = Convert.ToDateTime(t.startTime);
+	                  @_startDate.ToString("yyyy,MM,dd,mm,hh");
 	                  @Html.Raw("), new Date(");
-	                  @t._endDate.ToString("yyyy,MM,dd,mm,hh");
+	                  DateTime _endDate = Convert.ToDateTime(t.stopTime);
+	                  @_endDate.ToString("yyyy,MM,dd,mm,hh");
 	                  @Html.Raw("), 2.25, 'Group 1', '', new Date(");
-	                  @t._lastModDate.ToString("yyyy,MM,dd,mm,hh");
+	                  DateTime _lastModDate = Convert.ToDateTime(t.lastModDate);
+	                  @_lastModDate.ToString("yyyy,MM,dd,mm,hh");
 	                  @Html.Raw("), '<a data-toggle=\"modal\" data-target=\"#modalEditTable\">Edit</a>'],\n");
                     }
                 }

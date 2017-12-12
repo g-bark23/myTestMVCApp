@@ -6,9 +6,5 @@ namespace myTestApp.Models
         public DateTime _startDate;
         public DateTime _endDate;
         public DateTime _lastModDate;
-
-        public TimeCardClientSide()
-        {
-        }
     }
 }
