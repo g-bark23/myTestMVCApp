@@ -133,40 +133,25 @@
         data.addColumn('string', 'Group Name');
         data.addColumn('string', 'Comments');
         data.addColumn('datetime', 'Modified Date');
-	    @if(ViewBag.isLoggedInUserSelected == true){
-             data.addColumn("string", "");
-	    }
-           
+        data.addColumn("string", "");
 
-					<!-- var formatter = new google.visualization.NumberFormat({ fractionDigits: 2 }); -->
-						<!--formatter.format(data, 1); -->
 
             data.addRows([
-	            @foreach(TimeCard t in ViewBag.timeCardList)
-	            {
-	                //tcs._startDate = Convert.ToDateTime("12/08/17");
-                    //tcs._endDate = Convert.ToDateTime("12/08/17");
-                    //tcs.comments = "testing " + i;
-                    //tcs.timeCardID = 1234;
-                    //tcs.userID = 14;
-                    //tcs.revisionHistory = "revision " + (i + 100);
-                    //tcs._lastModDate = Convert.ToDateTime("12/08/17");
-	                // year, month, day, hour, minutes
-	                //tcs._startDate.ToString("yyyy,MM,dd,mm,hh");
-                
-                  if(ViewBag.isLoggedInUserSelected == true){
-	                    [new Date(@t._startDate.ToString("yyyy,MM,dd,mm,hh");), new Date(@t._endDate.ToString("yyyy,MM,dd,mm,hh");), 2.25, 'Group 1', '', new Date(t._lastModDate.ToString("yyyy,MM,dd,mm,hh");), '<a data-toggle="modal" data-target="#modalEditTable">Edit</a>'],
-	              }
-                  else{
-	                    [new Date(@t._startDate.ToString("yyyy,MM,dd,mm,hh");), new Date(@t._endDate.ToString("yyyy,MM,dd,mm,hh");), 2.25, 'Group 1', '', new Date(t._lastModDate.ToString("yyyy,MM,dd,mm,hh");)],
-                  }
-
-                // year, month, day, hour, minutes
-                [new Date(2017, 11, 6, 19, 30), new Date(2017, 11, 6, 21, 30), 2.25, 'Group 1', '', new Date(2017, 11, 6, 21, 30), '<a data-toggle="modal" data-target="#modalEditTable">Edit</a>'],
-                [new Date(2017, 11, 7, 19, 30), new Date(2017, 11, 6, 23, 30), 4.45, 'Group 1', 'Changed Stop Time from 12/7/2017 10:41:42 PM to 12/7/2017 11:41:42 PM', new Date(2017, 11, 6, 23, 30), '<a data-toggle="modal" data-target="#modalEditTable">Edit</a>']
-
-            ]);
-
+	            @{
+    	            foreach(TimeCardClientSide t in ViewBag.timeCardList)
+    	            {
+    	              string output = "";
+                      output = "[new Date(";
+	                  output += t._startDate.ToString("yyyy,MM,dd,mm,hh");
+	                  output += "), new Date(";
+	                  output += t._endDate.ToString("yyyy,MM,dd,mm,hh");
+	                  output += "), 2.25, 'Group 1', '', new Date(";
+	                  output += t._lastModDate.ToString("yyyy,MM,dd,mm,hh") ;
+	                  output += "), '<a data-toggle=\"modal\" data-target=\"#modalEditTable\">Edit</a>'],\n";
+                      @output;
+                    }
+                }
+              ]);
 
         var table = new google.visualization.Table(document.getElementById('table_div'));
 
