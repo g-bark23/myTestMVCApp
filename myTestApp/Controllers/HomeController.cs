@@ -107,7 +107,6 @@ namespace myTestApp.Controllers
                 tcs.userID = 14;
                 tcs.revisionHistory = "revision " + (i + 100);
                 tcs._lastModDate = Convert.ToDateTime("07 July 2008 10:32:47 AM");
-                String fDate = tcs._startDate.ToString("yyyy,MM,dd,mm,hh");
                 timeCardList.Add(tcs);
             }
             
