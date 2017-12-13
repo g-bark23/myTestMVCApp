@@ -117,12 +117,9 @@ namespace myTestApp.Controllers
             ViewBag.groupID = Message;
             Message = "CURRENT PROJECT ID " + sessionProjectID;
             ViewBag.projectID = Message;
-<<<<<<< HEAD
             timeCardList = dbhelp.getAllUserTimeCard("13");
             ViewBag.timeCardList = timeCardList;
-=======
-            
->>>>>>> eca7d38de6d366c9b86c853001c535a27d2a5674
+
             return View();
         }
 
@@ -232,8 +229,6 @@ namespace myTestApp.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
-<<<<<<< HEAD
-=======
 
         private void addTimeCard()
         {
@@ -278,7 +273,5 @@ namespace myTestApp.Controllers
             }
             return userTotalTime.ToString();
         }
-
->>>>>>> eca7d38de6d366c9b86c853001c535a27d2a5674
     }
 }
