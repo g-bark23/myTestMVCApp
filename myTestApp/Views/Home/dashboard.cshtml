@@ -1,6 +1,7 @@
 ﻿@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
+@model myTestApp.Models.TimeCard
 @{
     ViewData["Title"] = "Contact";
 }
@@ -1136,11 +1137,7 @@
         })
 
 
-<<<<<<< HEAD
             <!---------------------- Timecard Show  Hide Start and Stop Buttons ---------------------->
-=======
-            <!---------------------- Timecard Show & Hide Start and Stop Buttons ---------------------->
->>>>>>> 915bba48380bf30892547b8c299a2b05fe2f76d2
 
                 // Hide Stop Button onLoad
                 $(document).ready(function () {
@@ -1151,6 +1148,12 @@
                     $('#datetimepicker7').datetimepicker({
                         useCurrent: false //Important! See issue #1075
                     });
+
+                    $('#startTime').click(function(){ 
+                        $.ajax({ 
+                            type: 'POST',
+                            url: './UsersController/Time',
+                            data: $("#datetime").val(),
                             dataType: Date
                         });
                     });
