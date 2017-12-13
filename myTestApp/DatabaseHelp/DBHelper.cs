@@ -139,6 +139,19 @@ namespace myTestApp.DatabaseHelp
             }
         }
 
+        internal User getUser(string sessionUserID)
+        {
+            using (var db = new ApplicationDbContext(optionsBuilder.Options))
+            {
+                List<User> userList = new List<User>();
+                String sSQL = "SELECT *" +
+                               "FROM User u" +
+                               "WHERE u.userID = {0}";
+                userList = db.User.FromSql(sSQL, sessionUserID).ToList();
+                return userList[0];
+            }
+        }
+
         public int updateProject(Project p)
         {
             using (var db = new ApplicationDbContext(optionsBuilder.Options))

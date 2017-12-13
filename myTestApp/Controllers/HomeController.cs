@@ -69,26 +69,19 @@ namespace myTestApp.Controllers
             List<Group> projectGroups = new List<Group>();
             List<User> groupUsers = new List<User>();
 
-            bool isLoggedInUserSelected = false;
+            bool isLoggedInUserSelected;
+            bool isLoggedInUserAdmin;
             if (sessionUserID.Equals(sessionSelectedUserID))
             {
                 isLoggedInUserSelected = true;
             }
-
-            bool isLoggedInUserAdmin = true;
-            ViewBag.isLoggedInUserAdmin = isLoggedInUserAdmin;
-
-
-             = dbhelp.getAllProject();
-            ViewBag.allProjects = allProjects;
-            for (int i = 0; i < 3; i++){
-                Group g = new Group();
-                g.name = "Group " + i;
-                projectGroups.Add(g);
+            else
+            {
+                isLoggedInUserSelected = false;
             }
-            ViewBag.projectGroups = projectGroups;
 
 
+            isLoggedInUserAdmin = getIsLoggedInUserAdmin(sessionUserID);
             allProjects = dbhelp.getAllProject();
             projectGroups = getProjcetGroups(sessionProjectID);
             groupUsers = getGroupUsers(sessionGroupID);
@@ -99,7 +92,19 @@ namespace myTestApp.Controllers
             groupUserHours = getGroupUserHours(sessionGroupID);
             projectHoursSelectedUser = getUserTotalHours(sessionSelectedUserID);
 
-            
+            ViewBag.allProjects = allProjects;
+            ViewBag.projectGroups = projectGroups;
+            ViewBag.groupUsers = groupUsers;
+            ViewBag.timeCardList = timeCardList;
+            ViewBag.projectHoursHigh = projectHoursHigh;
+            ViewBag.projectHoursAverage = projectHoursAverage;
+            ViewBag.projectHoursLow = projectHoursLow;
+            ViewBag.groupUserHours = groupUserHours;
+            ViewBag.projectHoursSelectedUser = projectHoursSelectedUser;
+            ViewBag.projectGroups = projectGroups;
+            ViewBag.isLoggedInUserAdmin = isLoggedInUserAdmin;
+            ViewBag.isLoggedInUserSelected = isLoggedInUserSelected;
+
 
             string Message = "LOGGED IN USER ID " + sessionUserID;
             ViewBag.userID = Message;
@@ -108,8 +113,21 @@ namespace myTestApp.Controllers
             Message = "CURRENT PROJECT ID " + sessionProjectID;
             ViewBag.projectID = Message;
             
-            ViewBag.timeCardList = timeCardList;
             return View();
+        }
+
+        private bool getIsLoggedInUserAdmin(string sessionUserID)
+        {
+            DBHelper dBHelper = new DBHelper();
+            User u = dBHelper.getUser(sessionUserID);
+            if(u.isAdmin == 1)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         private List<User> getGroupUsers(string sessionGroupID)
