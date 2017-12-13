@@ -102,5 +102,41 @@ namespace myTestApp.Controllers
             }
             return RedirectToAction("myTestView", "Home");
         }
+
+        // POST: input time punch
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Time(DateTime newStartTime)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Add(new TimeCard
+              {
+                    userID = 4,
+                    startTime = newStartTime.ToString()
+              });
+                await _context.SaveChangesAsync();  
+            }
+            return RedirectToAction("dashboard", "Home");
+        }
+
+        // POST: input time punch
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> StopTime(DateTime newStopTime)
+        {
+            if (ModelState.IsValid)
+            {
+                var theTimeCard = from myTimeCard in _context.TimeCard
+                                 where myTimeCard.stopTime == null
+                                 where myTimeCard.userID == 4
+                                 select myTimeCard;
+                TimeCard m = theTimeCard.First();
+                m.stopTime = newStopTime.ToString();
+                _context.Update(m);
+                await _context.SaveChangesAsync();
+            }
+            return RedirectToAction("dashboard", "Home");
+        }
     }
 }

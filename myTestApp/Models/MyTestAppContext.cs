@@ -10,5 +10,6 @@ namespace myTestApp.Models
         }
 
         public DbSet<myTestApp.Models.User> User { get; set; }
+        public DbSet<myTestApp.Models.TimeCard> TimeCard { get; set; }
     }
 }

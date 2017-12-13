@@ -104,7 +104,6 @@ namespace myTestApp.Controllers
             ViewBag.groupID = Message;
             Message = "CURRENT PROJECT ID " + sessionProjectID;
             ViewBag.projectID = Message;
-            addTimeCard();
             timeCardList = dbhelp.getAllUserTimeCard("13");
             ViewBag.timeCardList = timeCardList;
             return View();
@@ -119,18 +118,6 @@ namespace myTestApp.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
-
-        private void addTimeCard()
-        {
-            TimeCard tc = new TimeCard();
-            tc.comments = "testing 1";
-            tc.stopTime = "12/08/17";
-            tc.startTime = "12/08/17";
-            tc.timeCardID = 1234;
-            tc.userID = 13;
-            DBHelper dbhelp = new DBHelper();
-            dbhelp.insertTimeCard(tc);
         }
     }
 }

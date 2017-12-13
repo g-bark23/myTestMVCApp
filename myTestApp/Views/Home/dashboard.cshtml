@@ -1,6 +1,7 @@
 ﻿@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
+@model myTestApp.Models.TimeCard
 @{
     ViewData["Title"] = "Contact";
 }
@@ -10,7 +11,8 @@
 <script type="text/javascript">
     google.charts.load("current", { packages: ["corechart"] });
 
-
+        
+    
     <!----------------------- Google Pie Chart (Users Group)------------------------->
         google.charts.setOnLoadCallback(drawGroupPie);
     function drawGroupPie() {
@@ -1090,6 +1092,8 @@
 
     <script type="text/javascript">
 
+
+    
         // Select Class From Dropdown
         $('.dropdown-toggle').dropdown();
         $('#classNames li').on('click', function () {
@@ -1133,7 +1137,7 @@
         })
 
 
-            < !---------------------- Timecard Show & Hide Start and Stop Buttons ---------------------->
+            <!---------------------- Timecard Show & Hide Start and Stop Buttons ---------------------->
 
                 // Hide Stop Button onLoad
                 $(document).ready(function () {
@@ -1144,6 +1148,24 @@
                     $('#datetimepicker7').datetimepicker({
                         useCurrent: false //Important! See issue #1075
                     });
+
+                    $('#startTime').click(function(){ 
+                        $.ajax({ 
+                            type: 'POST',
+                            url: './UsersController/Time',
+                            data: $("#datetime").val(),
+                            dataType: Date
+                        });
+                    });
+
+                    $('#stopTime').click(function(){ 
+                        $.ajax({ 
+                            type: 'POST',
+                            url: './UsersController/StopTime',
+                            data: $("#datetime").val(),
+                            dataType: Date
+                        });
+                    })
                 });
 
 
