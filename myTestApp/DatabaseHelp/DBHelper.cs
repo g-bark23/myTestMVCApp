@@ -64,6 +64,19 @@ namespace myTestApp.DatabaseHelp
             }
         }
 
+        public List<User> getGroupUsers(String groupID)
+        {
+            using (var db = new ApplicationDbContext(optionsBuilder.Options))
+            {
+                List<User> userList = new List<User>();
+                String sSQL = "SELECT u.name, u.username, u.password, u.userID, u.isAdmin" +
+                               "FROM User u" +
+                               "INNER JOIN UserToGroup ug on u.userID = ug.userID WHERE ug.groupID = {0}";
+                userList = db.User.FromSql(sSQL, groupID).ToList();
+                return userList;
+            }
+        }
+
         public int insertUser(User u)
         {
             using (var db = new ApplicationDbContext(optionsBuilder.Options))
@@ -111,6 +124,34 @@ namespace myTestApp.DatabaseHelp
             }
         }
 
+        public List<User> getProjectUsers(string projectID)
+        {
+            using (var db = new ApplicationDbContext(optionsBuilder.Options))
+            {
+                List<User> userList = new List<User>();
+                String sSQL = "SELECT u.name, u.username, u.password, u.userID, u.isAdmin" +
+                               "FROM User u" +
+                               "INNER JOIN userToGroup ug on u.userID = ug.userID" +
+                               "INNER JOIN Group g on ug.groupID = g.groupID" +
+                               "WHERE g.projectID = {0}";
+                userList = db.User.FromSql(sSQL, projectID).ToList();
+                return userList;
+            }
+        }
+
+        internal User getUser(string sessionUserID)
+        {
+            using (var db = new ApplicationDbContext(optionsBuilder.Options))
+            {
+                List<User> userList = new List<User>();
+                String sSQL = "SELECT *" +
+                               "FROM User u" +
+                               "WHERE u.userID = {0}";
+                userList = db.User.FromSql(sSQL, sessionUserID).ToList();
+                return userList[0];
+            }
+        }
+
         public int updateProject(Project p)
         {
             using (var db = new ApplicationDbContext(optionsBuilder.Options))
@@ -121,6 +162,19 @@ namespace myTestApp.DatabaseHelp
                 return db.SaveChanges();
             }
 
+        }
+
+        public List<TimeCard> getAllUserTimeCard(int userID, string groupID)
+        {
+            using (var db = new ApplicationDbContext(optionsBuilder.Options))
+            {
+                List<TimeCard> timeCardList = new List<TimeCard>();
+                String sSQL = "SELECT t.timeCardID, t.startTime, t.stopTime, t.userID, t.totalTime, t.revisionHistory, t.lastModDate, t.comments, t.groupID" +
+                              "FROM timeCard t" +
+                              "WHERE t.userID = {0} AND t.groupID = {1}";
+                timeCardList = db.Timecards.FromSql(sSQL, userID, groupID).ToList();
+                return timeCardList;
+            }
         }
     }
 }
