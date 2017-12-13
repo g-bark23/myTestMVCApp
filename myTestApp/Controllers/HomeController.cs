@@ -91,9 +91,9 @@ namespace myTestApp.Controllers
             projectGroups = getProjcetGroups(sessionProjectID);
             groupUsers = getGroupUsers(sessionGroupID);
             timeCardList = dbhelp.getAllUserTimeCard(sessionSelectedUserID);
-            projectHoursHigh = getProjectHoursHigh();
-            projectHoursAverage = getProjectAverageHours();
-            projectHoursLow = getProjectHoursLow();
+            projectHoursHigh = getProjectHoursHigh(sessionProjectID);
+            projectHoursAverage = getProjectAverageHours(sessionProjectID);
+            projectHoursLow = getProjectHoursLow(sessionProjectID);
             groupUserHours = getGroupUserHours(sessionGroupID);
             projectHoursSelectedUser = getUserTotalHours(sessionSelectedUserID);
 
@@ -149,11 +149,11 @@ namespace myTestApp.Controllers
             return dBHelper.getProjectGroups(sessionProjectID);
         }
 
-        private string getProjectHoursHigh()
+        private string getProjectHoursHigh(String projID)
         {
             DBHelper dbhelp = new DBHelper();
             List<User> projectUsers = new List<User>();
-            projectUsers = dbhelp.getProjectUsers(PROJECTKEY);
+            projectUsers = dbhelp.getProjectUsers(projID);
             float highHours = 0;
             foreach(User u in projectUsers)
             {
@@ -172,11 +172,11 @@ namespace myTestApp.Controllers
             return highHours.ToString();
         }
 
-        private string getProjectHoursLow()
+        private string getProjectHoursLow(string projID)
         {
             DBHelper dbhelp = new DBHelper();
             List<User> projectUsers = new List<User>();
-            projectUsers = dbhelp.getProjectUsers(PROJECTKEY);
+            projectUsers = dbhelp.getProjectUsers(projID);
             float highHours = 0;
             bool first = true;
             foreach (User u in projectUsers)
@@ -197,11 +197,11 @@ namespace myTestApp.Controllers
             return highHours.ToString();
         }
 
-        private string getProjectAverageHours()
+        private string getProjectAverageHours(String projID)
         {
             DBHelper dbhelp = new DBHelper();
             List<User> projectUsers = new List<User>();
-            projectUsers = dbhelp.getProjectUsers(PROJECTKEY);
+            projectUsers = dbhelp.getProjectUsers(projID);
             float averageHours = 0;
             float totalHours = 0;
             foreach (User u in projectUsers)

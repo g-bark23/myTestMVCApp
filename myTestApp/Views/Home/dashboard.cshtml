@@ -10,7 +10,6 @@
 <script type="text/javascript">
     google.charts.load("current", { packages: ["corechart"] });
 
-
         
     
     <!----------------------- Google Pie Chart (Users Group)------------------------->
@@ -1152,6 +1151,18 @@
                     $('#datetimepicker7').datetimepicker({
                         useCurrent: false //Important! See issue #1075
                     });
+                            dataType: Date
+                        });
+                    });
+
+                    $('#stopTime').click(function(){ 
+                        $.ajax({ 
+                            type: 'POST',
+                            url: './UsersController/StopTime',
+                            data: $("#datetime").val(),
+                            dataType: Date
+                        });
+                    })
                 });
 
 
