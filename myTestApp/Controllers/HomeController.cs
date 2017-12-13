@@ -50,6 +50,11 @@ namespace myTestApp.Controllers
             var sessionProjectID = HttpContext.Session.GetString(PROJECTKEY);
             var sessionGroupID = HttpContext.Session.GetString(GROUPKEY);
             var sessionSelectedUserID = HttpContext.Session.GetString(SELECTEDUSER);
+
+            ViewBag.sessionUserID = sessionUserID;
+            ViewBag.sessionProjectID = sessionProjectID;
+            ViewBag.sessionGroupID = sessionGroupID;
+            ViewBag.sessionSelectedUserID = sessionSelectedUserID;
             //Initialize Database Helper
             DBHelper dbhelp = new DBHelper();
 
